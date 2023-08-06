@@ -35,7 +35,7 @@ export default function Home() {
                 <SearchBar onSearch={handleSearch} />
                 <TagList />
                 <ResourceList />
-                <div className="hidden lg:block absolute h-48 rounded-full bg-gradient-to-r bg- from-fuchsia-600 animate-spin duration-[6000] blur-xl to-indigo-600 top-56 right-96 w-48"></div>
+                <div className="hidden 2xl:block absolute h-48 rounded-full bg-gradient-to-r bg- from-fuchsia-600 animate-spin duration-[6000] blur-xl to-indigo-600 top-56 right-96 w-48"></div>
             </div>
             <Footer />
         </>
