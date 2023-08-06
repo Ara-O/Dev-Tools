@@ -1,14 +1,14 @@
 import SearchBar from "../components/SearchBar"
 import Tag from "../components/Tag"
 import ResourceList from "../components/ResourceList"
-
+import Footer from "../components/Footer"
 const tags = ["Patterns", "Fonts", "Colors"]
 
 function TitleSection() {
     return (
         <>
-            <h2 className="text-2xl md:text-4xl font-bold">Find the right tool for the job 🧐</h2>
-            <h4 className="font-light text-sm md:w-[45rem] mt-4 leading-7">Trying ( and failing ) to remember that one tool you bookmarked months ago? I’ve been there, and I hope this tool helps</h4>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold">Find the right tool for the job 🧐</h2>
+            <h4 className="font-normal text-sm md:w-[45rem] mt-5 leading-7">Trying ( and failing ) to remember that one tool you bookmarked months ago? I’ve been there, and I hope this tool helps</h4>
         </>
     )
 }
@@ -35,7 +35,9 @@ export default function Home() {
                 <SearchBar onSearch={handleSearch} />
                 <TagList />
                 <ResourceList />
+                <div className="hidden lg:block absolute h-48 rounded-full bg-gradient-to-r bg- from-fuchsia-600 animate-spin duration-[6000] blur-xl to-indigo-600 top-56 right-96 w-48"></div>
             </div>
+            <Footer />
         </>
     )
 }
