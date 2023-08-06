@@ -55,7 +55,7 @@ export default function ResourceList() {
     return (
         <>
             <h3 className="mt-6 mb-6 font-light text-sm">Search results for ...</h3>
-            <div className="flex gap-8 flex-wrap">{
+            <div className="flex gap-6 flex-wrap">{
                 resources.map((resource) => <Resource data={resource} />)
             }
             </div>

@@ -11,6 +11,7 @@ function App() {
         {/* Routes */}
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/js-tools' element={<Home />} />
         </Routes>
       </BrowserRouter>
     </>
