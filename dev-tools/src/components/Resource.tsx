@@ -8,6 +8,7 @@ interface ResourceType {
     name: string,
     id: number,
     logoSrc: string,
+    link: string,
     description: string,
     tags: string[]
 }
