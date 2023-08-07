@@ -1,9 +1,10 @@
 interface Props {
-    children: any
+    children: any,
+    className?: any
 }
 
-export default function ColoredButton({ children }: Props) {
+export default function ColoredButton({ children, className }: Props) {
     return (
-        <button className="bg-gradient-to-r from-violet-600 to-indigo-600 px-7 text-white py-3.5 rounded-full text-xs">{children}</button>
+        <button className={`bg-gradient-to-r from-violet-600 to-indigo-600 px-7 text-white py-3.5 rounded-full text-xs ${className}`}>{children}</button>
     )
 } 
