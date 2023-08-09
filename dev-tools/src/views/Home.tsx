@@ -29,7 +29,7 @@ export default function Home() {
 
     return (
         <>
-            <div className="mt-20 px-10 md:pl-20 lg:pl-48 md:mt-28">
+            <div className="mt-20 px-10 md:pl-20 lg:pl-48 md:mt-28 min-h-screen">
                 <TitleSection />
                 <SearchBar onSearch={handleSearch} />
                 <TagList />

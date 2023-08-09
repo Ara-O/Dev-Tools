@@ -2,28 +2,41 @@ import { useState } from "react"
 import ColoredButton from "../components/ColoredButton"
 import Resource from "../components/Resource"
 import axios from "axios"
+import { ResourceType } from "../types/types"
 export default function AddResource() {
-    const [resource, setResource] = useState({
+    const [progressMessage, setProgressMessage] = useState<string>("")
+    const [resource, setResource] = useState<ResourceType>({
         name: "Coolors",
         link: "https://test.com",
-        id: 2000,
+        _id: "2000",
         logoSrc: "https://bloximages.chicago2.vip.townnews.com/salemnews.com/content/tncms/assets/v3/editorial/6/03/6031581b-a92f-5a40-b2b8-9e4fa7b1a7c0/53e57c77b6681.image.jpg",
         description: "Resource description...",
-        tags: "test, test2"
+        tags: "test, test2",
+        likes: 0
     })
 
     async function addResource(e) {
         e.preventDefault()
-        const res = await axios.post("http://localhost:8080/api/add-resource", resource)
-        console.log(res)
-        setResource({
-            name: "Coolors",
-            link: "https://test.com",
-            id: 2000,
-            logoSrc: "https://bloximages.chicago2.vip.townnews.com/salemnews.com/content/tncms/assets/v3/editorial/6/03/6031581b-a92f-5a40-b2b8-9e4fa7b1a7c0/53e57c77b6681.image.jpg",
-            description: "Resource description...",
-            tags: "test, test2"
-        })
+        try {
+            setProgressMessage("Currently adding resource...")
+            await axios.post("http://localhost:8080/api/add-resource", resource)
+            setProgressMessage("Resource added :D")
+
+            setResource({
+                name: "Coolors",
+                link: "https://test.com",
+                _id: "2000",
+                logoSrc: "https://bloximages.chicago2.vip.townnews.com/salemnews.com/content/tncms/assets/v3/editorial/6/03/6031581b-a92f-5a40-b2b8-9e4fa7b1a7c0/53e57c77b6681.image.jpg",
+                description: "Resource description...",
+                tags: "test, test2",
+                likes: 0
+            })
+
+        } catch (err: any) {
+            console.log(err)
+            alert(err.response.data)
+            setProgressMessage("")
+        }
     }
 
     function handleForm(e) {
@@ -34,11 +47,11 @@ export default function AddResource() {
         <>
             <div className="!mt-12 px-10 md:pl-20 lg:pl-48 md:mt-28">
                 <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold">Thanks For Contributing 😊</h2>
-                <form className="mt-8">
+                <form className="mt-8" onSubmit={addResource}>
                     <div className="flex gap-10 flex-wrap">
                         <span className="flex flex-col">
                             <label htmlFor="resource-name" className="text-[15px]">Resource name</label>
-                            <input id="resource-name" name="name" value={resource.name} onChange={handleForm} type="text" className="px-5 box-border font-light text-sm mt-4 shadow-md border border-gray-100 w-72 h-11 rounded-md" />
+                            <input required id="resource-name" name="name" value={resource.name} onChange={handleForm} type="text" className="px-5 box-border font-light text-sm mt-4 shadow-md border border-gray-100 w-72 h-11 rounded-md" />
                         </span>
                         <span className="flex flex-col">
                             <label htmlFor="resource-link" className="text-[15px]">Resource link</label>
@@ -56,15 +69,18 @@ export default function AddResource() {
                         </span>
                         <span className="flex flex-col">
                             <label htmlFor="resource-logo-src" className="text-[15px]">Resource logo</label>
-                            <input id="resource-logo-src" name="logoSrc" value={resource.logoSrc} onChange={handleForm} type="text" className="px-5 box-border font-light text-sm mt-4 shadow-md border border-gray-100 w-72 h-11 rounded-md" />
+                            <input required id="resource-logo-src" name="logoSrc" value={resource.logoSrc} onChange={handleForm} type="text" className="px-5 box-border font-light text-sm mt-4 shadow-md border border-gray-100 w-72 h-11 rounded-md" />
                         </span>
                     </div>
                     <h5 className="mt-6 mb-5 text-[15px]">Resource Preview</h5>
                     <Resource data={resource}></Resource>
                     <br />
-                    <ColoredButton onClick={addResource} type="submit" className="mt-4 text-sm hover:hue-rotate-15 transition-all duration-500">Add Resource</ColoredButton>
+                    <ColoredButton type="submit" className="mt-4 text-sm hover:hue-rotate-15 transition-all duration-500">Add Resource</ColoredButton>
                 </form>
             </div>
+            <h5>
+                {progressMessage}
+            </h5>
         </>
     )
 }
