@@ -20,6 +20,7 @@ type DatabaseInterface interface {
 	start() error
 	addResource(http.ResponseWriter, *http.Request)
 	getResources(http.ResponseWriter, *http.Request)
+	updateLikes(http.ResponseWriter, *http.Request)
 }
 
 func (d *Database) start() error {

@@ -45,7 +45,6 @@ func (db *Database) getResources(w http.ResponseWriter, r *http.Request) {
 		}
 
 		allResources = append(allResources, resource)
-		fmt.Printf("%+v", resource)
 	}
 
 	data, err := json.Marshal(allResources)

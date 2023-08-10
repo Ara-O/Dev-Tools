@@ -16,6 +16,7 @@ func (server *Server) start() error {
 	//Define routes
 	http.HandleFunc("/api/add-resource", server.database.addResource)
 	http.HandleFunc("/api/get-resources", server.database.getResources)
+	http.HandleFunc("/api/update-likes", server.database.updateLikes)
 	err := http.ListenAndServe(server.listenAddr, nil)
 
 	if err != nil {
