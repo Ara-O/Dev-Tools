@@ -1,55 +1,40 @@
 // import Tag from "./Tag"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import { ResourceType } from "../types/types"
 import unknownImage from "/question-mark-icon.png"
 import axios from "axios"
+
 interface Props {
     data: ResourceType
 }
 
 export default function Resource({ data }: Props) {
     const [isLiked, setIsLiked] = useState(false)
-    const [likes, setLikes] = useState(0)
-    const isFirstUpdate = useRef(true)
-    function likeResource() {
-        setIsLiked((curr) => !curr);
+    const [likes, setLikes] = useState(data.likes)
+    console.log("re rendering")
+    async function likeResource() {
+        //Using this variable as a synchronous way to keep track of the 
+        //likes variable since setLikes is async
+        const updatedLikes = isLiked ? likes - 1 : likes + 1;
+        setLikes(updatedLikes)
+        setIsLiked((is_liked) => !is_liked)
+
+        try {
+            let res = await axios.post("http://localhost:8080/api/update-likes", {
+                _id: data._id,
+                likes: updatedLikes
+            })
+
+            console.log(res)
+        } catch (err: any) {
+            alert(err.response.data)
+        }
 
     }
 
-    useEffect(() => {
-        setLikes(data.likes)
-    }, [])
+    // http://localhost:8080/api/update-likes
 
-    useEffect(() => {
-        if (isFirstUpdate.current) {
-            isFirstUpdate.current = false
-            return;
-        }
 
-        if (isLiked) {
-            setLikes((curr) => curr + 1)
-            axios.post("http://localhost:8080/api/update-likes", {
-                _id: data._id,
-                likes: likes + 1
-            }).then((res) => {
-                console.log(res)
-            }).catch((err: any) => {
-                alert(err.response)
-            })
-
-        } else {
-            setLikes((curr) => curr - 1)
-            axios.post("http://localhost:8080/api/update-likes", {
-                _id: data._id,
-                likes: likes - 1
-            }).then((res) => {
-                console.log(res)
-            }).catch((err: any) => {
-                alert(err.responde.data)
-            })
-        }
-
-    }, [isLiked])
 
     return (
         <div className="relative border border-gray-200h-auto px-8 py-5 pb-5 max-w-[25rem] min-w-[20rem] w-auto rounded-md">
