@@ -15,7 +15,7 @@ export default function Pagination({ pages, changePage, currentPage }: Props) {
         <>
             <div className="flex ">
                 {
-                    [...new Array(pages)].map((_, i) => <span key={i + 1} onClick={() => handleChangePage(i + 1)} className="cursor-pointer h-8 w-8 hover:text-black transition-colors border flex items-center justify-center font-light text-gray-500">{i + 1}</span>
+                    [...new Array(pages)].map((_, i) => <span key={i + 1} onClick={() => handleChangePage(i + 1)} className={`cursor-pointer h-8 w-8 hover:text-black transition-colors border flex items-center justify-center font-light text-gray-500  ${currentPage === i + 1 ? 'text-black' : ''}`}>{i + 1}</span>
                     )
                 }
             </div>

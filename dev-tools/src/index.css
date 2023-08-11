@@ -12,10 +12,9 @@
 
 .nav-item {
     position: relative;
-    padding-top: 5px;
 }
 
-.nav-item::after {
+/* .nav-item::after {
     content: "";
     height: 1px;
     background-color: rgb(29, 29, 29);
@@ -28,7 +27,11 @@
 
 .nav-item:hover::after {
     width: 35px;
-}
+} */
+
+/* .nav-item:hover {
+    text-decoration: underline;
+} */
 
 @keyframes RotateHue {
     from {
