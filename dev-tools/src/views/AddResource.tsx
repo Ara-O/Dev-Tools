@@ -19,7 +19,7 @@ export default function AddResource() {
         e.preventDefault()
         try {
             setProgressMessage("Currently adding resource...")
-            await axios.post("http://localhost:8080/api/add-resource", resource)
+            await axios.post(import.meta.env.VITE_API_ENDPOINT + "api/add-resource", resource)
             setProgressMessage("Resource added :D")
 
             setResource({
@@ -65,7 +65,7 @@ export default function AddResource() {
                     <div className="flex mt-7 flex-wrap gap-10">
                         <span className="flex flex-col">
                             <label htmlFor="resource-description" className="text-[15px]">Resource description</label>
-                            <textarea id="resource-description" name="description" value={resource.description} onChange={handleForm} className="px-5 box-border font-light text-sm pt-3 mt-4 w-auto flex-wrap max-w-[38.5rem] shadow-md border border-gray-100 h-28 rounded-md"></textarea>
+                            <textarea id="resource-description" name="description" value={resource.description} onChange={handleForm} className="px-5 box-border font-light text-sm pt-3 mt-4 w-auto flex-wrap max-w-[38.5rem] shadow-md border border-gray-100 h-28 min-h-[44px] rounded-md"></textarea>
                         </span>
                         <span className="flex flex-col">
                             <label htmlFor="resource-logo-src" className="text-[15px]">Resource logo</label>

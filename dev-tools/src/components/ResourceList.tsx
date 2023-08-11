@@ -13,7 +13,7 @@ export default function ResourceList() {
     useEffect(() => {
         const abortController = new AbortController
         async function getResources() {
-            let res = await axios.get("http://localhost:8080/api/get-resources", { signal: abortController.signal })
+            let res = await axios.get(import.meta.env.VITE_API_ENDPOINT + "api/get-resources", { signal: abortController.signal })
             console.log(res)
             if (res.data?.resources)
                 setResources(res.data.resources)
@@ -39,7 +39,7 @@ export default function ResourceList() {
         const abortController = new AbortController()
 
         async function fetchResources() {
-            let res = await axios.get("http://localhost:8080/api/get-resources", {
+            let res = await axios.get(import.meta.env.VITE_API_ENDPOINT + "api/get-resources", {
                 signal: abortController.signal, params: {
                     page: currentPage
                 }

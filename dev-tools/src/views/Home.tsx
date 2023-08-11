@@ -2,11 +2,10 @@ import SearchBar from "../components/SearchBar"
 import Tag from "../components/Tag"
 import ResourceList from "../components/ResourceList"
 const tags = ["Patterns", "Fonts", "Colors"]
-
 function TitleSection() {
     return (
         <>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold">Find the right tool for the job 🧐</h2>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold">Find the right tool for the job <span className="pl-4"></span> 🎉</h2>
             <h4 className="font-normal text-sm md:w-[45rem] mt-5 leading-7">Trying ( and failing ) to remember that one tool you bookmarked months ago? I’ve been there, and I hope this tool helps</h4>
         </>
     )
