@@ -73,14 +73,14 @@ export default function AddResource() {
                         </span>
                     </div>
                     <h5 className="mt-6 mb-5 text-[15px]">Resource Preview</h5>
-                    <Resource data={resource}></Resource>
+                    <Resource hasLikesDisabled={true} data={resource}></Resource>
                     <br />
                     <ColoredButton type="submit" className="mt-4 text-sm hover:hue-rotate-15 transition-all duration-500">Add Resource</ColoredButton>
                 </form>
+                <h5 className="mt-5 font-light text-sm">
+                    {progressMessage}
+                </h5>
             </div>
-            <h5>
-                {progressMessage}
-            </h5>
         </>
     )
 }

@@ -5,14 +5,17 @@ import unknownImage from "/question-mark-icon.png"
 import axios from "axios"
 
 interface Props {
-    data: ResourceType
+    data: ResourceType,
+    hasLikesDisabled?: boolean
 }
 
-export default function Resource({ data }: Props) {
+export default function Resource({ data, hasLikesDisabled = false }: Props) {
     const [isLiked, setIsLiked] = useState(false)
     const [likes, setLikes] = useState(data.likes)
-    console.log("re rendering")
     async function likeResource() {
+        if (hasLikesDisabled)
+            return
+
         //Using this variable as a synchronous way to keep track of the 
         //likes variable since setLikes is async
         const updatedLikes = isLiked ? likes - 1 : likes + 1;
@@ -37,7 +40,7 @@ export default function Resource({ data }: Props) {
 
 
     return (
-        <div className="relative border border-gray-200h-auto px-8 py-5 pb-5 max-w-[25rem] min-w-[20rem] w-auto rounded-md">
+        <div className="relative border  border-gray-200h-auto px-8 py-5 pb-5 max-w-[25rem] min-w-[20rem] w-auto rounded-md">
             <span className="flex items-center gap-4">
                 <img src={data.logoSrc || unknownImage} onError={() => document.querySelector('.logo-image')?.setAttribute('src', unknownImage)} alt={`${data.name} logo`} className="w-10 h-10 object-contain logo-image" />
                 <h2 className="font-medium">{data.name}</h2>

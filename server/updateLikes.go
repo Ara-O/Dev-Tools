@@ -25,7 +25,6 @@ func (db *Database) updateLikes(w http.ResponseWriter, r *http.Request) {
 
 	collection := db.db.Database("dev-tools").Collection("Resources")
 	var updatedVals UpdateLikesStruct
-	fmt.Println(updatedVals)
 
 	json.NewDecoder(r.Body).Decode(&updatedVals)
 
