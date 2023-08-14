@@ -1,11 +1,9 @@
 import Resource from "./Resource";
-import { ResourceType } from "../types/types";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Pagination from "./Pagination";
 
-export default function ResourceList() {
-    const [resources, setResources] = useState<ResourceType[]>([])
+export default function ResourceList({ resources, setResources }) {
     const [pageCount, setPageCount] = useState<number>(0)
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [isLoading, setIsLoading] = useState<boolean>(true)

@@ -2,8 +2,11 @@ import SearchBar from "../components/SearchBar"
 import Tag from "../components/Tag"
 import ResourceList from "../components/ResourceList"
 import Footer from "../components/Footer"
+import { useState } from "react"
+import axios from "axios"
+import { ResourceType } from "../types/types";
 
-const tags = ["Patterns", "Fonts", "Colors"]
+const tags = ["Go", "Patterns", "Fonts", "Colors"]
 
 function TitleSection() {
     return (
@@ -14,19 +17,30 @@ function TitleSection() {
     )
 }
 
-function TagList() {
+function TagList({ handleSearchFromTag }) {
     return (
         <span className="flex gap-3 flex-wrap mt-5">
             {
-                tags.map((tag) => <Tag key={tag}>{tag}</Tag>)
+                tags.map((tag) => <div onClick={() => handleSearchFromTag(tag)}><Tag key={tag}>{tag}</Tag></div>)
             }
         </span>
     )
 }
 
 export default function Home() {
-    function handleSearch(query: string) {
-        console.log(query)
+    const [resources, setResources] = useState<ResourceType[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    async function handleSearch(query: string) {
+        setIsLoading(true)
+        let res = await axios.post("http://localhost:8080/api/search-resource", {
+            query
+        })
+        setIsLoading(false)
+        console.log(res.data)
+        if (!res.data) {
+            res.data = []
+        }
+        setResources(res.data)
     }
 
     return (
@@ -34,8 +48,11 @@ export default function Home() {
             <div className="mt-20 px-10 pl-10 ml:pl-20 xl:pl-48 md:mt-28 min-h-screen">
                 <TitleSection />
                 <SearchBar onSearch={handleSearch} />
-                <TagList />
-                <ResourceList />
+                <TagList handleSearchFromTag={handleSearch} />
+                <h4 className={`font-light mt-5 hidden text-sm ${isLoading && "block"}`}>Loading...</h4>
+                <div className={`${isLoading && "hidden"}`}>
+                    <ResourceList resources={resources} setResources={setResources} />
+                </div>
 
                 {/* <div className="hidden 2xl:block absolute h-48 rounded-full bg-gradient-to-r bg- from-fuchsia-600 animate-spin duration-[6000] blur-xl to-indigo-600 top-56 right-80 w-48"></div> */}
             </div>

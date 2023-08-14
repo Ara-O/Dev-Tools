@@ -18,6 +18,7 @@ func (server *Server) start() error {
 	http.HandleFunc("/api/add-resource", server.database.addResource)
 	http.HandleFunc("/api/get-resources", server.database.getResources)
 	http.HandleFunc("/api/update-likes", server.database.updateLikes)
+	http.HandleFunc("/api/search-resource", server.database.searchResource)
 
 	//health
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {

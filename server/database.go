@@ -21,6 +21,7 @@ type DatabaseInterface interface {
 	addResource(http.ResponseWriter, *http.Request)
 	getResources(http.ResponseWriter, *http.Request)
 	updateLikes(http.ResponseWriter, *http.Request)
+	searchResource(http.ResponseWriter, *http.Request)
 }
 
 func (d *Database) start() error {
