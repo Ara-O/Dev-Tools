@@ -32,7 +32,7 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     async function handleSearch(query: string) {
         setIsLoading(true)
-        let res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/api/search-resource`, {
+        let res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}api/search-resource`, {
             query
         })
         setIsLoading(false)
