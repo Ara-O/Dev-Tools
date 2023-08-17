@@ -1,7 +1,7 @@
 // import Tag from "./Tag"
 import { useState } from "react"
 import { ResourceType } from "../types/types"
-import unknownImage from "/question-mark-icon.png"
+import unknownImage from "/question-mark-icon-2.png"
 import axios from "axios"
 
 interface Props {
@@ -10,11 +10,12 @@ interface Props {
 }
 
 
-
 export default function Resource({ data, hasLikesDisabled = false }: Props) {
 
     const [isLiked, setIsLiked] = useState(false)
     const [likes, setLikes] = useState(data.likes)
+
+
     async function likeResource() {
         if (hasLikesDisabled)
             return
@@ -41,15 +42,16 @@ export default function Resource({ data, hasLikesDisabled = false }: Props) {
 
 
     return (
-        <div className="relative border  border-gray-200h-auto px-8 py-5 pb-5 max-w-[25rem] min-w-[22rem] w-auto rounded-md">
+        <div className="relative border  border-gray-200 h-48 px-8 py-5 pb-5 max-w-[25rem] min-w-[22rem]  w-auto rounded-md">
             <span className="flex items-center gap-4">
-                <img src={data.logoSrc || unknownImage} onError={() => document.querySelector('.logo-image')?.setAttribute('src', unknownImage)} alt={`${data.name} logo`} className="w-10 h-10 object-contain logo-image" />
+                {/* @ts-expect-error */}
+                {data.logoSrc && <img src={data.logoSrc} alt={`${data.name} logo`} onError={(e) => console.log("error", e.target.src = unknownImage)} className=" max-h-[28px] w-auto h-10 object-contain logo-image" />}
                 <h2 className="font-medium">{data.name}</h2>
             </span>
             <h3 className="w-auto max-w-sm text-[13.5px] font-light mt-3 leading-7" title={data.description}>{data.description.slice(0, 60)}...</h3>
             <h6 className="text-[12.5px] font-light mt-3">Tags: {data.tags}</h6>
-            <span className="flex mt-0 mb-1 gap-4 pr-0 items-center justify-end">
-
+            <br />
+            <span className="flex absolute bottom-7 right-8  gap-4 pr-0 items-center justify-end">
                 {!isLiked ? <svg className="cursor-pointer" onClick={likeResource} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e01b24" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" ><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></svg> : <svg onClick={likeResource} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#e01b24" stroke="#e01b24" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="cursor-pointer">
                     <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                 </svg>
