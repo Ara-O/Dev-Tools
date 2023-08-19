@@ -21,7 +21,7 @@ function TagList({ handleSearchFromTag }) {
     return (
         <span className="flex gap-3 flex-wrap mt-5">
             {
-                tags.map((tag) => <div onClick={() => handleSearchFromTag(tag)}><Tag key={tag}>{tag}</Tag></div>)
+                tags.map((tag) => <div key={tag} onClick={() => handleSearchFromTag(tag)}><Tag key={tag}>{tag}</Tag></div>)
             }
         </span>
     )
@@ -36,7 +36,6 @@ export default function Home() {
             query
         })
         setIsLoading(false)
-        console.log(res.data)
         if (!res.data) {
             res.data = []
         }

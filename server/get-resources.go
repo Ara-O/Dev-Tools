@@ -56,12 +56,13 @@ func (db *Database) getResources(w http.ResponseWriter, r *http.Request) {
 	collection := db.db.Database("dev-tools").Collection("Resources")
 
 	skip, _ := strconv.ParseInt(requestedPage, 10, 64)
-	resources, err := collection.Find(context.Background(), bson.D{}, options.Find().SetLimit(PAGE_LIMIT).SetSkip(PAGE_LIMIT*(skip-1)))
-	defer resources.Close(context.Background())
+	resources, err := collection.Find(context.Background(), bson.D{}, options.Find().SetLimit(PAGE_LIMIT).SetSkip(PAGE_LIMIT*(skip-1)).SetSort(bson.D{{"likes", -1}}))
 
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	defer resources.Close(context.Background())
 
 	//Get number of resources
 	opts := options.Count().SetHint("_id_")

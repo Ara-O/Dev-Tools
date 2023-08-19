@@ -22,7 +22,6 @@ export default function ResourceList({ resources, setResources }) {
             })
 
             setIsLoading(false)
-            console.log(res)
             if (res.data?.resources)
                 setResources(res.data.resources)
             setPageCount(res.data.num_of_pages)
